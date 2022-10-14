@@ -1,24 +1,28 @@
+.intel_syntax noprefix
 .globl poww
 
 .text
-poww: # %rdi = x, %rsi = p, return x^p in %rax
-    cmpq $0, %rdi
-    je .ret_zero # if x == 0 
+#
+# %rdi = x, %rsi = p, return x^p in %rax
+# 
+poww: 
+    cmpq    rdi,    0
+    je      .ret_zero       # if x == 0 
     
-    cmpq $0, %rsi
-    je .ret_one # if p == 0
-    movq %rdi, %rax
+    cmpq    rsi,    0
+    je      .ret_one        # if p == 0
+    movq    rax,    rdi
 .again:    
-    decq %rsi
-    jnz .multiply
+    decq    rsi
+    jnz     .multiply
     retq
 .multiply:
-    mulq %rdi # %rax *= %rdi
-    jmp .again
+    mulq    rdi             # %rax *= %rdi
+    jmp     .again
    
 .ret_one:
-   movq $1, %rax # return 1
-   retq
+    movq    rax,    1       # return 1
+    retq
 .ret_zero:
-   movq $0, %rax # return 0
-   retq
+    movq    rax,    0       # return 0
+    retq
