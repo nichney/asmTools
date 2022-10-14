@@ -1,4 +1,7 @@
-pow: # %rdi = x, %rsi = p, return x^p in %rax
+.globl poww
+
+.text
+poww: # %rdi = x, %rsi = p, return x^p in %rax
     cmpq $0, %rdi
     je .ret_zero # if x == 0 
     
