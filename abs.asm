@@ -6,11 +6,12 @@
 # %rdi = x, return |x| in %rax
 # x is only integer
 abs:
-    mov     rsi,    rdi
-    sal     rsi,    1
+    pushq   rdi
+    sal     rdi,    1
+    popq    rdi
     jnc     .endabs
     not     rdi
     inc     rdi
 .endabs:
-    movq    rax,    rdi
+    movq    rax, rdi
     retq
