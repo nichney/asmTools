@@ -1,17 +1,18 @@
 .intel_syntax noprefix
-.globl poww
+.globl powi
 
 .text
 #
 # %rdi = x, %rsi = p, return x^p in %rax
-# 
-poww: 
+# p is only positive integer, x is only integer
+powi: 
     cmpq    rdi,    0
     je      .ret_zero       # if x == 0 
     
     cmpq    rsi,    0
     je      .ret_one        # if p == 0
-    movq    rax,    rdi
+
+    movq    rax,    rdi     # result = x
 .again:    
     decq    rsi
     jnz     .multiply
